@@ -102,7 +102,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="https://sui.acm.org/2025/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -139,6 +139,16 @@
                   <span>Code</span>
                   </a>
               </span>
+              <!-- Demo Link. -->
+              <span class="link-block">
+                <a href="https://naruya.github.io/gaussian-vrm"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-rocket"></i>
+                  </span>
+                  <span>Demo</span>
+                  </a>
+              </span>
               <!-- Dataset Link. -->
               <!-- <span class="link-block">
                 <a href="https://github.com/google/nerfies/releases/tag/0.1"
@@ -170,91 +180,109 @@
         Our avatar generation and viewer run entirely in the browser!
       </h2>
       <div style="margin: 2rem auto 0; line-height: 1.8;">
-        <div style="text-align: center; margin-bottom: 0.5rem;">
+        <div style="text-align: center; margin-bottom: 0.2rem; font-size: 1.5rem;">
           💃 <strong>Create and enjoy your 3D avatar — Super easy!</strong> 💃
         </div>
-        <div style="max-width: 355px; margin: 0 auto; text-align: left;">
+        <div style="max-width: 450px; margin: 0 auto; text-align: left; font-size: 1.2rem;">
           (a) Scan yourself using <a href="https://scaniverse.com" target="_blank"><strong>Scaniverse</strong></a> (&asymp;3 min)<br>
           (b) Export PLY data (Share > Export > PLY)<br>
           (c) Visit <a href="https://naruya.github.io/gaussian-vrm" target="_blank"><strong>our demo</strong></a> and select your data (<strong>&asymp;30 sec</strong>)<br>
           (d) Done!<br>
         </div>
-        <div style="text-align: center; margin-top: 0;">All processing runs on your device. Try it with your friends!</div>
+        <div style="text-align: center; margin-top: 0; font-size: 1.2rem;">All processing runs on your device. Try it with your friends!</div>
       </div>
     </div>
   </div>
 </section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="naruya" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_naruya.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="shuri" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_shuri.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="suwa" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_suwa.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="inose" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_inose.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="junichi" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_junichi.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="matsuyu" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_matsuyu.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="shi3z" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_shi3z.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="nakaki" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/recording_nakaki.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Avatar Generation Demo Section -->
+<section class="section">
+  <div class="container is-fullhd">
+    <h2 class="title is-3 has-text-centered">Avatar Generation</h2>
+    <div style="display: flex; justify-content: center; margin-top: 2rem;">
+      <div style="max-width: 800px; width: 100%;">
+        <video autoplay controls muted loop playsinline style="width: 100%; height: auto; border-radius: 10px;">
+          <source src="./static/videos/preprocess.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <p class="has-text-centered" style="margin-top: 1.5rem; font-size: 1.2rem;">
+      Our system is available at <a href="https://naruya.github.io/gaussian-vrm" target="_blank">naruya.github.io/gaussian-vrm</a>.
+    </p>
+  </div>
+</section>
+
 
 <!-- GVRM Interactive Viewer Section -->
 <section class="section">
   <div class="container is-fullhd">
     <h2 class="title is-3 has-text-centered">Portable Avatar Format: Gaussian-VRM (.gvrm)</h2>
-    <p class="has-text-centered" style="margin-bottom: 1.5rem;">
-      For more details, check out the <a href="https://github.com/naruya/gaussian-vrm" target="_blank">GitHub repository</a>.
-    </p>
-    <div style="width: 100%; height: 600px; margin: 0 auto; overflow-x: auto; overflow-y: hidden;">
+    <div style="width: 100%; height: 600px; margin: 2rem auto 0; overflow-x: auto; overflow-y: hidden;">
       <iframe src="./gvrm-viewer.html" style="min-width: 1000px; width: 100%; height: 100%; border: none;"></iframe>
     </div>
+    <p class="has-text-centered" style="margin-top: 1.5rem; font-size: 1.2rem;">
+      For more details, check out the <a href="https://github.com/naruya/gaussian-vrm" target="_blank">GitHub repository</a>.
+    </p>
   </div>
 </section>
-
-
-<!-- <section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 
 <section class="section">
@@ -310,7 +338,7 @@
     <!--/ Abstract. -->
 
     <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
+    <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
@@ -320,10 +348,42 @@
       </div>
     </div>
     <!--/ Paper video. -->
+
+    <!-- Applications. -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Applications</h2>
+
+        <div style="margin-bottom: 3rem;">
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/s4nvbm4ejWU?rel=0&amp;showinfo=0"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <p style="margin-top: 0.5rem;"><strong>Multiple Avatars</strong></p>
+        </div>
+
+        <div style="margin-bottom: 3rem;">
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/6-1xJTFIdtw?rel=0&amp;showinfo=0"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <p style="margin-top: 0.5rem;"><strong>Playable Avatar</strong></p>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/N4obeCtCOiY?rel=0&amp;showinfo=0"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <p style="margin-top: 0.5rem;"><strong>VR Viewer</strong></p>
+        </div>
+      </div>
+    </div>
+    <!--/ Applications. -->
   </div>
 </section>
 
-<!-- 
+<!--
 <section class="section">
   <div class="container is-max-desktop">
 
@@ -463,8 +523,8 @@
 
 <section class="section" id="Acknowledgements">
   <div class="container is-max-desktop content">
-    <h2 class="title">Acknowledgements</h2>
-    <p>
+    <h2 class="title has-text-centered">Acknowledgements</h2>
+    <p class="has-text-centered">
       This work was supported by the Ochiai Pavilion at the Osaka/Kansai Expo 2025.<br>
       This work was supported by JSPS KAKENHI Grant Number <a href="https://kaken.nii.ac.jp/ja/grant/KAKENHI-PROJECT-23KJ0284/">23KJ0284</a>.
     </p>
@@ -474,7 +534,7 @@
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
+    <h2 class="title has-text-centered">BibTeX</h2>
     <pre><code>@misc{kondo2025instantskinnedgaussianavatars,
       title={Instant Skinned Gaussian Avatars for Web, Mobile and VR Applications}, 
       author={Naruya Kondo and Yuto Asano and Yoichi Ochiai},
