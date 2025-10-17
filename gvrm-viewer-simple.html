@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+  <title>Simple GVRM Viewer - Code Only</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+      background: #fff;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      gap: 40px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .canvas-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .canvas-container canvas {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .code-container {
+      flex: 1;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .code-container pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .code-title {
+      color: #4ec9b0;
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    .keyword { color: #c586c0; }
+    .string { color: #ce9178; }
+    .function { color: #dcdcaa; }
+    .comment { color: #6a9955; }
+    .number { color: #b5cea8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="code-container">
+      <div class="code-title">// JavaScript Code</div>
+      <pre><span class="keyword">import</span> * <span class="keyword">as</span> THREE <span class="keyword">from</span> <span class="string">'three'</span>;
+<span class="keyword">import</span> { GVRM } <span class="keyword">from</span> <span class="string">'gvrm'</span>;
+
+<span class="keyword">const</span> canvas = document.<span class="function">getElementById</span>(<span class="string">'canvas'</span>);
+<span class="keyword">const</span> renderer = <span class="keyword">new</span> THREE.<span class="function">WebGLRenderer</span>({ canvas });
+renderer.<span class="function">setSize</span>(<span class="number">550</span>, <span class="number">550</span>);
+
+<span class="keyword">const</span> scene = <span class="keyword">new</span> THREE.<span class="function">Scene</span>();
+
+<span class="keyword">const</span> camera = <span class="keyword">new</span> THREE.<span class="function">PerspectiveCamera</span>(<span class="number">65</span>, <span class="number">1</span>, <span class="number">0.01</span>, <span class="number">100</span>);
+camera.position.<span class="function">set</span>(<span class="number">0</span>, <span class="number">0.6</span>, <span class="number">1.6</span>);
+camera.<span class="function">lookAt</span>(<span class="number">0</span>, <span class="number">0.2</span>, <span class="number">0</span>);
+
+<span class="comment">// GVRM</span>
+<span class="keyword">const</span> gvrm = <span class="keyword">await</span> GVRM.<span class="function">load</span>(<span class="string">'./author.gvrm'</span>, scene, camera, renderer);  <span class="comment">// 1/3</span>
+<span class="keyword">await</span> gvrm.<span class="function">changeFBX</span>(<span class="string">'./Idle.fbx'</span>);  <span class="comment">// 2/3</span>
+
+renderer.<span class="function">setAnimationLoop</span>(() => {
+  gvrm.<span class="function">update</span>();  <span class="comment">// 3/3</span>
+  renderer.<span class="function">render</span>(scene, camera);
+});</pre>
+    </div>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        "@pixiv/three-vrm": "https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@2.1.0/lib/three-vrm.module.js",
+        "gaussian-splats-3d": "https://naruya.github.io/gs-edit/lib/gaussian-splats-3d.module.js",
+        "jszip": "https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm",
+        "gvrm": "https://naruya.github.io/gs-edit/lib/gaussian-vrm.min.js"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GVRM } from 'gvrm';
+
+    const canvas = document.getElementById('canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.setSize(550, 550);
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(65, 1, 0.01, 100);
+    camera.position.set(0, 0.6, 1.6);
+    camera.lookAt(0, 0.2, 0);
+
+    // GVRM
+    const gvrm = await GVRM.load('./author.gvrm', scene, camera, renderer);  // 1/3
+    await gvrm.changeFBX('./Idle.fbx');  // 2/3
+
+    renderer.setAnimationLoop(() => {
+      gvrm.update();  // 3/3
+      renderer.render(scene, camera);
+    });
+  </script>
+</body>
+</html>

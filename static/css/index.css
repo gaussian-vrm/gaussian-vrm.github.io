@@ -27,6 +27,12 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
+.teaser video {
+  width: 150%;
+  max-width: 150%;
+  margin-left: -25%;
+}
+
 
 .publication-title {
 }
