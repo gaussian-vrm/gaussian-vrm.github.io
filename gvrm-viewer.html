@@ -123,10 +123,21 @@ renderer.<span class="function">setAnimationLoop</span>(() => {
     const gvrm = await GVRM.load('./author.gvrm', scene, camera, renderer);  // 1/3
     await gvrm.changeFBX('./Idle.fbx');  // 2/3
 
-    renderer.setAnimationLoop(() => {
-      controls.update();  // Update controls
-      gvrm.update();  // 3/3
-      renderer.render(scene, camera);
+    // Fixed FPS (30 FPS)
+    const targetFPS = 30;
+    const frameInterval = 1000 / targetFPS;
+    let lastFrameTime = 0;
+
+    renderer.setAnimationLoop((currentTime) => {
+      const deltaTime = currentTime - lastFrameTime;
+
+      if (deltaTime >= frameInterval) {
+        lastFrameTime = currentTime - (deltaTime % frameInterval);
+
+        controls.update();  // Update controls
+        gvrm.update();  // 3/3
+        renderer.render(scene, camera);
+      }
     });
   </script>
 </body>
