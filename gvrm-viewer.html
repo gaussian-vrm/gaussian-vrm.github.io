@@ -12,17 +12,42 @@
       display: flex;
       height: 100vh;
       width: 100%;
-      gap: 40px;
-      padding: 20px;
+      padding: 20px 40px;
       box-sizing: border-box;
       align-items: center;
     }
     .canvas-container {
-      flex-shrink: 0;
+      flex: 0 0 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 40px;
+      position: relative;
+      background: #000;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 608px) {
+      .container {
+        flex-direction: column;
+        padding: 20px;
+      }
+      .canvas-container {
+        flex: none;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      .code-container {
+        flex: none;
+        width: 100%;
+        max-height: 50vh;
+      }
     }
     .canvas-container canvas {
+      width: 480px;
+      height: 480px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       display: block;
     }
     .code-container {
@@ -36,10 +61,37 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
+    .enable-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px 20px;
+      background: #ffcc99;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .enable-button:hover {
+      background: #ffd9b3;
+    }
+    .loading-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      color: #fff;
+      display: none;
+    }
     .code-container pre {
       margin: 0;
-      white-space: pre-wrap;
-      word-wrap: break-word;
+      white-space: pre;
     }
     .code-title {
       color: #4ec9b0;
@@ -58,6 +110,8 @@
   <div class="container">
     <div class="canvas-container">
       <canvas id="canvas"></canvas>
+      <button id="enableButton" class="enable-button" style="display: none;">Enable Simple Viewer</button>
+      <div id="loadingText" class="loading-text">loading<span id="loadingDots">.</span></div>
     </div>
     <div class="code-container">
       <div class="code-title">// JavaScript Code</div>
@@ -66,7 +120,7 @@
 
 <span class="keyword">const</span> canvas = document.<span class="function">getElementById</span>(<span class="string">'canvas'</span>);
 <span class="keyword">const</span> renderer = <span class="keyword">new</span> THREE.<span class="function">WebGLRenderer</span>({ canvas });
-renderer.<span class="function">setSize</span>(<span class="number">550</span>, <span class="number">550</span>);
+renderer.<span class="function">setSize</span>(<span class="number">480</span>, <span class="number">480</span>);
 
 <span class="keyword">const</span> scene = <span class="keyword">new</span> THREE.<span class="function">Scene</span>();
 
@@ -102,43 +156,91 @@ renderer.<span class="function">setAnimationLoop</span>(() => {
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { GVRM } from 'gvrm';
 
-    const canvas = document.getElementById('canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.setSize(550, 550);
+    const enableButton = document.getElementById('enableButton');
+    const loadingText = document.getElementById('loadingText');
+    const loadingDots = document.getElementById('loadingDots');
+    let viewerEnabled = false;
+    let dotsInterval = null;
 
-    const scene = new THREE.Scene();
+    async function initViewer() {
+      if (viewerEnabled) return;
+      viewerEnabled = true;
 
-    const camera = new THREE.PerspectiveCamera(65, 1, 0.01, 100);
-    camera.position.set(0, 0.6, 1.6);
-    camera.lookAt(0, 0.2, 0);
-
-    // OrbitControls for drag interaction
-    const controls = new OrbitControls(camera, canvas);
-    controls.target.set(0, 0.2, 0);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.update();
-
-    // GVRM
-    const gvrm = await GVRM.load('./author.gvrm', scene, camera, renderer);  // 1/3
-    await gvrm.changeFBX('./Idle.fbx');  // 2/3
-
-    // Fixed FPS (30 FPS)
-    const targetFPS = 30;
-    const frameInterval = 1000 / targetFPS;
-    let lastFrameTime = 0;
-
-    renderer.setAnimationLoop((currentTime) => {
-      const deltaTime = currentTime - lastFrameTime;
-
-      if (deltaTime >= frameInterval) {
-        lastFrameTime = currentTime - (deltaTime % frameInterval);
-
-        controls.update();  // Update controls
-        gvrm.update();  // 3/3
-        renderer.render(scene, camera);
+      if (enableButton) {
+        enableButton.style.display = 'none';
       }
-    });
+
+      // Show loading
+      loadingText.style.display = 'block';
+
+      // Animate dots
+      let dotCount = 1;
+      dotsInterval = setInterval(() => {
+        dotCount = (dotCount % 3) + 1;
+        loadingDots.textContent = '.'.repeat(dotCount);
+      }, 500);
+
+      const canvas = document.getElementById('canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas });
+      renderer.setSize(480, 480);
+
+      const scene = new THREE.Scene();
+
+      const camera = new THREE.PerspectiveCamera(65, 1, 0.01, 100);
+      camera.position.set(0, 0.6, 1.6);
+      camera.lookAt(0, 0.2, 0);
+
+      // OrbitControls for drag interaction
+      const controls = new OrbitControls(camera, canvas);
+      controls.target.set(0, 0.2, 0);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.update();
+
+      // GVRM
+      const gvrm = await GVRM.load('./author.gvrm', scene, camera, renderer);  // 1/3
+      await gvrm.changeFBX('./Idle.fbx');  // 2/3
+
+      // Hide loading
+      if (dotsInterval) {
+        clearInterval(dotsInterval);
+      }
+      loadingText.style.display = 'none';
+
+      // Fixed FPS (30 FPS)
+      const targetFPS = 30;
+      const frameInterval = 1000 / targetFPS;
+      let lastFrameTime = 0;
+
+      renderer.setAnimationLoop((currentTime) => {
+        const deltaTime = currentTime - lastFrameTime;
+
+        if (deltaTime >= frameInterval) {
+          lastFrameTime = currentTime - (deltaTime % frameInterval);
+
+          controls.update();  // Update controls
+          gvrm.update();  // 3/3
+          renderer.render(scene, camera);
+        }
+      });
+    }
+
+    // Check screen size and decide whether to auto-load or show button
+    let screenWidth;
+    try {
+      screenWidth = window.top.innerWidth;
+    } catch (e) {
+      screenWidth = window.innerWidth;
+    }
+
+    if (screenWidth < 1368) {
+      // Show button for smaller screens
+      enableButton.style.display = 'block';
+      enableButton.addEventListener('click', initViewer);
+    } else {
+      // Auto-load for larger screens
+      initViewer();
+    }
   </script>
 </body>
 </html>

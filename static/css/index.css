@@ -28,9 +28,24 @@ body {
 }
 
 .teaser video {
-  width: 150%;
-  max-width: 150%;
-  margin-left: -25%;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+}
+
+@media (min-width: 1024px) {
+  .teaser video {
+    width: 120%;
+    max-width: 120%;
+    margin-left: -10%;
+  }
+}
+@media (min-width: 1368px) {
+  .teaser video {
+    width: 150%;
+    max-width: 150%;
+    margin-left: -25%;
+  }
 }
 
 

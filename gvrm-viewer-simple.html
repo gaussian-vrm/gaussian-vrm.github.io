@@ -12,19 +12,23 @@
       display: flex;
       height: 100vh;
       width: 100%;
-      gap: 40px;
-      padding: 20px;
+      padding: 20px 40px;
       box-sizing: border-box;
+      align-items: center;
     }
     .canvas-container {
-      flex: 1;
+      flex: 0 0 40%;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-right: 40px;
     }
     .canvas-container canvas {
+      width: 100%;
+      aspect-ratio: 1 / 1;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: block;
     }
     .code-container {
       flex: 1;
@@ -39,8 +43,8 @@
     }
     .code-container pre {
       margin: 0;
-      white-space: pre-wrap;
-      word-wrap: break-word;
+      white-space: pre;
+      overflow-x: auto;
     }
     .code-title {
       color: #4ec9b0;
@@ -67,7 +71,7 @@
 
 <span class="keyword">const</span> canvas = document.<span class="function">getElementById</span>(<span class="string">'canvas'</span>);
 <span class="keyword">const</span> renderer = <span class="keyword">new</span> THREE.<span class="function">WebGLRenderer</span>({ canvas });
-renderer.<span class="function">setSize</span>(<span class="number">550</span>, <span class="number">550</span>);
+renderer.<span class="function">setSize</span>(<span class="number">480</span>, <span class="number">480</span>);
 
 <span class="keyword">const</span> scene = <span class="keyword">new</span> THREE.<span class="function">Scene</span>();
 
@@ -104,7 +108,7 @@ renderer.<span class="function">setAnimationLoop</span>(() => {
 
     const canvas = document.getElementById('canvas');
     const renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.setSize(550, 550);
+    renderer.setSize(480, 480);
 
     const scene = new THREE.Scene();
 
