@@ -285,6 +285,44 @@
 </section>
 
 
+<!-- How Gaussian-VRM Works Section -->
+<section class="section">
+  <div class="container is-fullhd">
+    <h2 class="title is-3 has-text-centered">How Gaussian-VRM Works</h2>
+    <div style="display: flex; justify-content: center; margin-top: 2rem;">
+      <div style="max-width: 800px; width: 100%;">
+        <video autoplay controls muted loop playsinline style="width: 100%; height: auto; border-radius: 10px;">
+          <source src="./static/videos/skinning.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <p class="has-text-centered" style="margin-top: 1.5rem; font-size: 1.2rem;">
+      In the background, a mesh (in the <strong>.vrm</strong> format) runs within GVRM,<br>and the poses of the splats follow the vertices of the mesh.
+    </p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p style="font-size: 1.2rem;"><strong>Technical note for expert readers:</strong></p>
+          <p>
+            We implemented the core logic in GLSL to achieve high performance.
+            However, as you know, depth sorting of splats is the most computationally expensive part.
+            Updating the positions of all splats every frame for the sorter process would cause excessive memory I/O, making real-time rendering nearly impossible.
+            So, we divide the splat scene into 14 sub-scenes and use the static positions within each sub-scene for sorting.
+            In other words, <strong>we do not use the skinned results for sorting, but we do use the correct skinned results for rendering.</strong>
+            This approach allows us to achieve a realistic computational cost while maintaining visual accuracy, even in WebGL. ✌
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -349,37 +387,62 @@
     </div>
     <!--/ Paper video. -->
 
-    <!-- Applications. -->
-    <div class="columns is-centered has-text-centered" style="margin-top: 3rem;">
+  </div>
+</section>
+
+<!-- Applications Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Applications</h2>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div style="margin-bottom: 3rem;">
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/s4nvbm4ejWU?rel=0&amp;showinfo=0"
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          <p style="margin-top: 0.5rem;"><strong>Multiple Avatars</strong></p>
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="applications-carousel" class="carousel results-carousel">
+        <div class="item item-multiple-avatars">
+          <video poster="" id="multiple-avatars" controls muted loop playsinline height="100%">
+            <source src="./static/videos/multiple_avatars.mp4"
+                    type="video/mp4">
+          </video>
         </div>
-
-        <div style="margin-bottom: 3rem;">
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/6-1xJTFIdtw?rel=0&amp;showinfo=0"
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          <p style="margin-top: 0.5rem;"><strong>Playable Avatar</strong></p>
+        <div class="item item-playable-avatar">
+          <video poster="" id="playable-avatar" controls muted loop playsinline height="100%">
+            <source src="./static/videos/playable_avatar.mp4"
+                    type="video/mp4">
+          </video>
         </div>
-
-        <div style="margin-bottom: 2rem;">
-          <div class="publication-video">
-            <iframe src="https://www.youtube.com/embed/N4obeCtCOiY?rel=0&amp;showinfo=0"
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-          <p style="margin-top: 0.5rem;"><strong>VR Viewer</strong></p>
+        <div class="item item-vr-viewer">
+          <video poster="" id="vr-viewer" controls muted loop playsinline height="100%">
+            <source src="./static/videos/vr_viewer.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-multiple-avatars-2">
+          <video poster="" id="multiple-avatars-2" controls muted loop playsinline height="100%">
+            <source src="./static/videos/multiple_avatars.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-playable-avatar-2">
+          <video poster="" id="playable-avatar-2" controls muted loop playsinline height="100%">
+            <source src="./static/videos/playable_avatar.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-vr-viewer-2">
+          <video poster="" id="vr-viewer-2" controls muted loop playsinline height="100%">
+            <source src="./static/videos/vr_viewer.mp4"
+                    type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
-    <!--/ Applications. -->
   </div>
 </section>
 
