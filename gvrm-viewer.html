@@ -104,6 +104,27 @@
     .function { color: #dcdcaa; }
     .comment { color: #6a9955; }
     .number { color: #b5cea8; }
+    .drag-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+      display: none;
+      animation: dragHintSlide 2s ease-in-out infinite;
+      opacity: 0.8;
+    }
+    @keyframes dragHintSlide {
+      0%, 100% {
+        transform: translate(-90%, -50%);
+      }
+      50% {
+        transform: translate(-10%, -50%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -112,6 +133,7 @@
       <canvas id="canvas"></canvas>
       <button id="enableButton" class="enable-button" style="display: none;">Enable Simple Viewer</button>
       <div id="loadingText" class="loading-text">loading<span id="loadingDots">.</span></div>
+      <div id="dragHint" class="drag-hint">👆</div>
     </div>
     <div class="code-container">
       <div class="code-title">// JavaScript Code</div>
@@ -206,6 +228,23 @@ renderer.<span class="function">setAnimationLoop</span>(() => {
         clearInterval(dotsInterval);
       }
       loadingText.style.display = 'none';
+
+      // Show drag hint after a short delay
+      const dragHint = document.getElementById('dragHint');
+      setTimeout(() => {
+        dragHint.style.display = 'block';
+      }, 500);
+
+      // Hide drag hint on first interaction
+      let hasInteracted = false;
+      const hideDragHint = () => {
+        if (!hasInteracted) {
+          hasInteracted = true;
+          dragHint.style.display = 'none';
+        }
+      };
+      canvas.addEventListener('mousedown', hideDragHint);
+      canvas.addEventListener('touchstart', hideDragHint);
 
       // Fixed FPS (30 FPS)
       const targetFPS = 30;
